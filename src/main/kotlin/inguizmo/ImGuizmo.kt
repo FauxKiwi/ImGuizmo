@@ -1,4 +1,0 @@
-package inguizmo
-
-object ImGuizmo {
-}
