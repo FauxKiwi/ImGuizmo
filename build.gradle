@@ -1,0 +1,49 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.4.10'
+}
+
+group = 'com.pumpkin'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        url = 'https://jitpack.io'
+    }
+}
+
+dependencies {
+    ['core', 'imgui', 'glfw', 'gl'].forEach {
+        implementation "com.github.kotlin-graphics.imgui:$it:v1.79"
+    }
+
+    implementation 'com.github.kotlin-graphics:gln:v0.5.2'
+    compileOnly 'com.github.kotlin-graphics:glm:v1.0.1'
+
+
+    ['', '-jemalloc', '-stb', '-glfw', '-opengl'].forEach {
+        implementation "org.lwjgl:lwjgl$it:3.2.3"
+    }
+    ['-remotery', '-openal', '-opengles', '-jawt', '-vulkan'].forEach {
+        runtimeOnly "org.lwjgl:lwjgl$it:3.2.3"
+    }
+
+    ['', '-jemalloc', '-stb', '-glfw', '-opengl', '-remotery', '-openal', '-opengles'].forEach {
+        runtimeOnly "org.lwjgl:lwjgl$it:3.2.3:natives-windows"
+    }
+
+
+    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
+}
+
+test {
+    useJUnit()
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = '11'
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = '11'
+}
